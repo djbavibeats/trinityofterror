@@ -87,3 +87,29 @@ button:hover {
 .image-editor-field-wrapper label {
   padding-bottom: 10px;
 }
+
+@media screen and (max-width: 767px) {
+  .main-content-wrapper {
+    flex-direction: column
+  }
+
+  .konva-wrapper {
+    padding-right: 0px;
+  }
+
+  .konvajs-content {
+    width: 300px !important;
+  }
+
+  canvas {
+    width: 300px !important;
+  }
+
+  .image-editor-wrapper {
+    padding-left: 0px;
+  }
+
+  .image-editor-field-wrapper {
+    margin: 0 auto;
+  }
+}

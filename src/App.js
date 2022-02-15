@@ -1,16 +1,19 @@
 import React, { Component } from 'react'
 import Slider from 'react-input-slider'
-import { Stage, Layer, Text, Image, Transformer } from 'react-konva'
+import { Stage, Layer, Text, Image } from 'react-konva'
 import useImage from 'use-image'
 
-import TombstoneImage from './tombstone.png' 
 import TourLogo from './trinityofterrorlogo.png'
 import PictureBackground from './picturebackground.jpg'
 
 // Load image
 const Tombstone = () => {
   const [image] = useImage(PictureBackground)
-  return <Image image={image} width={600} height={784.5} />
+  if (window.innerWidth <= 767) {
+    return <Image alt="background" image={image} width={300} height={392.25} />
+  } else {
+    return <Image alt="background" image={image} width={600} height={784.5} />
+  }
 }
 
 class ImageEditor extends Component {
@@ -46,16 +49,31 @@ class ImageEditor extends Component {
   }
 
   render() {
+    let stageWidth = 0;
+    let stageHeight = 0;
+    let textX = 0;
+    let textY = 0;
+    if (window.innerWidth <= 767) {
+      stageWidth = 300;
+      stageHeight = 392.25;
+      textX = 100;
+      textY = 300;
+    } else {
+      stageWidth = 600;
+      stageHeight = 784.5
+      textX = 400;
+      textY = 460;
+    }
     return (<>
     <div class="header">
       <img class="tour-logo" src={TourLogo} />
     </div>
     <div class="main-content-wrapper">
       <div class='konva-wrapper'>
-      <Stage width={600} height={784.5}>
+      <Stage width={stageWidth} height={stageHeight}>
         <Layer>
         <Tombstone />
-        <Text draggable fontFamily='Hulk' fontSize={this.state.textSize} text={this.state.text} fill='red' x={460} y={400} />
+        <Text draggable fontFamily='Hulk' fontSize={this.state.textSize} text={this.state.text} fill='red' x={textX} y={textY} />
         </Layer>
       </Stage>
       </div>
