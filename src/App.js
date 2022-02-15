@@ -66,7 +66,7 @@ class ImageEditor extends Component {
     }
     return (<>
     <div class="header">
-      <img class="tour-logo" src={TourLogo} />
+      <img class="tour-logo" alt="tour-logo" src={TourLogo} />
     </div>
     <div class="main-content-wrapper">
       <div class='konva-wrapper'>
