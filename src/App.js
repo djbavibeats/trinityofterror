@@ -102,7 +102,7 @@ class ImageEditor extends Component {
         .then(() => console.log('Successful share'))
         .catch((error) => console.log('Error sharing', error));
     }
-    
+
     function dataURItoBlob(dataURI) {
       // convert base64/URLEncoded data component to raw binary data held in a string
       var byteString;

@@ -75,11 +75,15 @@ input {
 button {
   background: red;
   border: none;
+  color: black !important;
   font-family: 'Hulk';
   padding: 14px 0px;
   font-size: 28px;
 }
 
+button a {
+  color: black !important;
+}
 button:hover {
   cursor: pointer;
 }
