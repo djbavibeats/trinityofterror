@@ -7,14 +7,14 @@ import TourLogo from './trinityofterrorlogo.png'
 import PictureBackground from './picturebackground.jpg'
 
 // Load image
-const Tombstone = () => {
-  const [image] = useImage(PictureBackground)
-  if (window.innerWidth <= 767) {
-    return <Image alt="background" image={image} width={300} height={392.25} />
-  } else {
-    return <Image alt="background" image={image} width={600} height={784.5} />
-  }
-}
+// const Tombstone = () => {
+//   const [image] = useImage(PictureBackground)
+//   if (window.innerWidth <= 767) {
+//     return <Image alt="background" image={image} width={300} height={392.25} />
+//   } else {
+//     return <Image alt="background" image={image} width={600} height={784.5} />
+//   }
+// }
 
 class URLImage extends React.Component {
   state = {
