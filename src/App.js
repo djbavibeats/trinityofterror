@@ -95,7 +95,7 @@ class ImageEditor extends Component {
     a.target = "_blank";
     a.rel="noopener noreferrer";
     a.click();
-    // alert(a)
+    window.location.href = "instagram://story-camera"
   }
 
   render() {
