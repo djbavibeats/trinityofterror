@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import Slider from 'react-input-slider'
 import { Stage, Layer, Text, Image } from 'react-konva'
-import useImage from 'use-image'
+// import useImage from 'use-image'
 
 import TourLogo from './trinityofterrorlogo.png'
-import PictureBackground from './picturebackground.jpg'
+// import PictureBackground from './picturebackground.jpg'
 
 // Load image
 // const Tombstone = () => {
