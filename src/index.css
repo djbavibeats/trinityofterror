@@ -88,6 +88,21 @@ button:hover {
   padding-bottom: 10px;
 }
 
+.image-editor-field-wrapper.guest-buttons {
+  flex-direction: row;
+  width: 100%;
+}
+
+.image-editor-field-wrapper.guest-buttons button {
+  flex: 1;
+  margin-right: 15px;
+  /* width: 950px; */
+}
+
+.image-editor-field-wrapper.guest-buttons-label {
+  padding-bottom: 0px;
+}
+
 @media screen and (max-width: 767px) {
   .main-content-wrapper {
     flex-direction: column

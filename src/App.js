@@ -16,17 +16,60 @@ const Tombstone = () => {
   }
 }
 
+class URLImage extends React.Component {
+  state = {
+    image: null
+  };
+  componentDidMount() {
+    this.loadImage();
+  }
+  componentDidUpdate(oldProps) {
+    if (oldProps.src !== this.props.src) {
+      this.loadImage();
+    }
+  }
+  componentWillUnmount() {
+    this.image.removeEventListener('load', this.handleLoad);
+  }
+  loadImage() {
+    // save to "this" to remove "load" handler on unmount
+    this.image = new window.Image();
+    this.image.src = this.props.src;
+    this.image.addEventListener('load', this.handleLoad);
+  }
+  handleLoad = () => {
+    this.setState({
+      image: this.image
+    });
+  };
+  render() {
+    return (
+      <Image
+        image={this.state.image}
+        ref={node => {
+          this.imageNode = node;
+        }}
+        width={this.props.width}
+        height={this.props.height}
+      />
+    );
+  }
+}
+
 class ImageEditor extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      text: "hello",
-      textSize: 32
+      text: "name",
+      textSize: 32,
+      imageUrl: 'https://' + window.location.host + '/picturebackground.jpg'
     }
+
 
     this.handleTextChange = this.handleTextChange.bind(this)
     this.handleTextSizeChange = this.handleTextSizeChange.bind(this)
     this.saveImageAs = this.saveImageAs.bind(this)
+    this.handlePictureChange = this.handlePictureChange.bind(this)
   }
 
   handleTextChange(event) {
@@ -38,14 +81,21 @@ class ImageEditor extends Component {
     this.setState({ textSize: event.x })
   }
 
+  handlePictureChange(image) {
+    console.log(image)
+  }
+
   saveImageAs() {
     const canvas = document.getElementsByTagName('canvas')
     console.log(canvas)
     console.log("Save the image")
     const a = document.createElement('a');
-    a.download = 'download.png';
+    a.download = 'downloaad.png';
     a.href = canvas[0].toDataURL('image/png');
+    a.target = "_blank";
+    a.rel="noopener noreferrer";
     a.click();
+    // alert(a)
   }
 
   render() {
@@ -64,25 +114,35 @@ class ImageEditor extends Component {
       textX = 400;
       textY = 460;
     }
+
     return (<>
-    <div class="header">
-      <img class="tour-logo" alt="tour-logo" src={TourLogo} />
+    <div className="header">
+      <img className="tour-logo" alt="tour-logo" src={TourLogo} />
     </div>
-    <div class="main-content-wrapper">
-      <div class='konva-wrapper'>
+    <div className="main-content-wrapper">
+      <div className='konva-wrapper'>
       <Stage width={stageWidth} height={stageHeight}>
         <Layer>
-        <Tombstone />
+        {/* <Tombstone /> */}
+        <URLImage src={this.state.imageUrl} width={stageWidth} height={stageHeight} />
         <Text draggable fontFamily='Hulk' fontSize={this.state.textSize} text={this.state.text} fill='red' x={textX} y={textY} />
         </Layer>
       </Stage>
       </div>
-      <div class='image-editor-wrapper'>
-        <div class="image-editor-field-wrapper">
+      <div className='image-editor-wrapper'>
+        <div className="image-editor-field-wrapper guest-buttons-label">
+            <label>Number of Guests</label>
+        </div>
+        <div className="image-editor-field-wrapper guest-buttons">
+          <button onClick={() => this.handlePictureChange('one')}>One</button>
+          <button onClick={() => this.handlePictureChange('two')}>Two</button>
+          <button onClick={() => this.handlePictureChange('three')}>Three</button>
+        </div>
+        <div className="image-editor-field-wrapper">
           <label>Your Name</label>
           <input type="text" value={this.state.text} onChange={this.handleTextChange}></input>
         </div>
-        <div class="image-editor-field-wrapper">
+        <div className="image-editor-field-wrapper">
           <label>Font Size</label>
           <Slider axis="x" x={this.state.textSize} onChange={this.handleTextSizeChange} 
             styles={{
@@ -97,7 +157,7 @@ class ImageEditor extends Component {
             }} 
           />
         </div>
-        <div class="image-editor-field-wrapper">
+        <div className="image-editor-field-wrapper">
           <button onClick={this.saveImageAs}>Save Image</button>
         </div>
       </div>
