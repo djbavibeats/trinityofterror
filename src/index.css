@@ -1,12 +1,8 @@
 @font-face {
-  font-family: 'Hulk';
-  src: url('./hulk.ttf') format('truetype');
+  font-family: 'RockSalt';
+  src: url('./rocksalt.ttf') format('truetype');
   /* other formats include: 'woff2', 'truetype, 'opentype',
                             'embedded-opentype', and 'svg' */
-}
-
-* {
-
 }
 
 html,
@@ -41,7 +37,7 @@ body {
 }
 
 .konvajs-content {
-  font-family: 'Hulk'
+  font-family: 'RockSalt' !important;
 }
 
 .image-editor-wrapper {
@@ -57,8 +53,9 @@ body {
   flex-direction: column;
   padding-bottom: 25px;
   color: red;
-  font-family: 'Hulk';
-  font-size: 28px;
+  font-family: 'Montserrat';
+  font-weight: 300;
+  font-size: 20px;
   width: 300px;
 }
 
@@ -68,17 +65,19 @@ input {
   border-width: 0px 0px 2px 0px;
   border-color: red;
   outline: none;
-  font-size: 28px;
-  font-family: 'Hulk';
+  font-size: 20px;
+  font-family: 'Montserrat';
+  font-weight: 300;
 }
 
 button {
   background: red;
   border: none;
   color: black !important;
-  font-family: 'Hulk';
+  font-family: 'Montserrat';
+  font-weight: 300;
   padding: 14px 0px;
-  font-size: 28px;
+  font-size: 20px;
 }
 
 button a {

@@ -16,6 +16,7 @@ import TourLogo from './trinityofterrorlogo.png'
 //   }
 // }
 
+
 class URLImage extends React.Component {
   state = {
     image: null
@@ -60,29 +61,84 @@ class ImageEditor extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      text: "name",
-      textSize: 32,
-      imageUrl: 'https://' + window.location.host + '/picturebackground.jpg'
+      textOne: "",
+      textOneSize: 15,
+      textOneShow: true,
+      textTwo: "",
+      textTwoSize: 15,
+      textTwoShow: false,
+      textThree: "",
+      textThreeSize: 15,
+      textThreeShow: false,
+      imageUrl: 'http://' + window.location.host + '/one.jpg',
+      selectedShapeName: ""
     }
 
 
-    this.handleTextChange = this.handleTextChange.bind(this)
-    this.handleTextSizeChange = this.handleTextSizeChange.bind(this)
+    this.handleTextOneChange = this.handleTextOneChange.bind(this)
+    this.handleTextOneSizeChange = this.handleTextOneSizeChange.bind(this)
+
+    this.handleTextTwoChange = this.handleTextTwoChange.bind(this)
+    this.handleTextTwoSizeChange = this.handleTextTwoSizeChange.bind(this)
+
+    this.handleTextThreeChange = this.handleTextThreeChange.bind(this)
+    this.handleTextThreeSizeChange = this.handleTextThreeSizeChange.bind(this)
+
     this.saveImageAs = this.saveImageAs.bind(this)
     this.handlePictureChange = this.handlePictureChange.bind(this)
   }
 
-  handleTextChange(event) {
-    this.setState({ text: event.target.value })
+  handleTextOneChange(event) {
+    this.setState({ textOne: event.target.value })
   }
 
-  handleTextSizeChange(event) {
-    console.log(event.x)
-    this.setState({ textSize: event.x })
+  handleTextOneSizeChange(event) {
+    this.setState({ textOneSize: event.x })
+  }
+
+  handleTextTwoChange(event) {
+    this.setState({ textTwo: event.target.value })
+  }
+
+  handleTextTwoSizeChange(event) {
+    this.setState({ textTwoSize: event.x })
+  }
+
+  handleTextThreeChange(event) {
+    this.setState({ textThree: event.target.value })
+  }
+
+  handleTextThreeSizeChange(event) {
+    this.setState({ textThreeSize: event.x })
   }
 
   handlePictureChange(image) {
     console.log(image)
+    switch (image) {
+      case ('one'):
+        this.setState({ imageUrl: 'http://' + window.location.host + '/one.jpg',
+        textOneShow: true,
+        textTwoShow: false,
+        textThreeShow: false
+        })
+        break;
+      case ('two'):
+        this.setState({ 
+          imageUrl: 'http://' + window.location.host + '/two.jpg',
+          textOneShow: false,
+          textTwoShow: true,
+          textThreeShow: true
+        })
+        break;
+      case ('three'):
+        this.setState({ imageUrl: 'http://' + window.location.host + '/three.jpg',
+        textOneShow: true,
+        textTwoShow: true,
+        textThreeShow: true })
+        break;
+      default:
+        this.setState({ imageUrl: 'http://' + window.location.host + '/one.jpg' })
+    }
   }
 
   saveImageAs() {
@@ -120,24 +176,31 @@ class ImageEditor extends Component {
       }
       return new Blob([ia], {type:mimeString});
       }
-
   }
 
   render() {
     let stageWidth = 0;
     let stageHeight = 0;
-    let textX = 0;
-    let textY = 0;
+    let textOneX = 0;
+    let textOneY = 0;
+    let textTwoX = 0;
+    let textTwoY = 0;
+    let textThreeX = 0;
+    let textThreeY = 0;
     if (window.innerWidth <= 767) {
       stageWidth = 300;
       stageHeight = 392.25;
-      textX = 100;
-      textY = 300;
+      textOneX = 125;
+      textOneY = 210;
+      textTwoX = 40;
+      textTwoY = 210;
+      textThreeX = 210;
+      textThreeY = 200;
     } else {
       stageWidth = 600;
       stageHeight = 784.5
-      textX = 400;
-      textY = 460;
+      textOneX = 400;
+      textOneY = 460;
     }
 
     return (<>
@@ -146,11 +209,13 @@ class ImageEditor extends Component {
     </div>
     <div className="main-content-wrapper" id="main-content-wrapper">
       <div className='konva-wrapper'>
-      <Stage width={stageWidth} height={stageHeight}>
+      <Stage width={stageWidth} height={stageHeight} onTouchStart={this.handleStageMouseDown} onMouseDown={this.handleStageMouseDown}>
         <Layer>
         {/* <Tombstone /> */}
         <URLImage src={this.state.imageUrl} width={stageWidth} height={stageHeight} />
-        <Text draggable fontFamily='Hulk' fontSize={this.state.textSize} text={this.state.text} fill='red' x={textX} y={textY} />
+          <Text visible={this.state.textOneShow} draggable name="text" fontFamily='RockSalt' fontSize={this.state.textOneSize} text={this.state.textOne} fill='red' x={textOneX} y={textOneY} />
+          <Text visible={this.state.textTwoShow} draggable name="text" fontFamily='RockSalt' fontSize={this.state.textTwoSize} text={this.state.textTwo} fill='red' x={textTwoX} y={textTwoY} />
+          <Text visible={this.state.textThreeShow} draggable name="text" fontFamily='RockSalt' fontSize={this.state.textThreeSize} text={this.state.textThree} fill='red' x={textThreeX} y={textThreeY} />
         </Layer>
       </Stage>
       </div>
@@ -163,13 +228,15 @@ class ImageEditor extends Component {
           <button onClick={() => this.handlePictureChange('two')}>Two</button>
           <button onClick={() => this.handlePictureChange('three')}>Three</button>
         </div>
+        {/* TEXT ONE */}
         <div className="image-editor-field-wrapper">
-          <label>Your Name</label>
-          <input type="text" value={this.state.text} onChange={this.handleTextChange}></input>
+          <label>Name One</label>
+          <input type="text" value={this.state.textOne} onChange={this.handleTextOneChange}></input>
         </div>
+
         <div className="image-editor-field-wrapper">
-          <label>Font Size</label>
-          <Slider axis="x" x={this.state.textSize} onChange={this.handleTextSizeChange} 
+          <label>Font Size One</label>
+          <Slider axis="x" x={this.state.textOneSize} onChange={this.handleTextOneSizeChange} 
             styles={{
               track: {
                 backgroundColor: 'black',
@@ -182,6 +249,51 @@ class ImageEditor extends Component {
             }} 
           />
         </div>
+
+        {/* TEXT TWO */}
+        <div className="image-editor-field-wrapper">
+          <label>Name Two</label>
+          <input type="text" value={this.state.textTwo} onChange={this.handleTextTwoChange}></input>
+        </div>
+
+        <div className="image-editor-field-wrapper">
+          <label>Font Size Two</label>
+          <Slider axis="x" x={this.state.textTwoSize} onChange={this.handleTextTwoSizeChange} 
+            styles={{
+              track: {
+                backgroundColor: 'black',
+                borderColor: 'red',
+                borderWidth: '2'
+              },
+              active: {
+                backgroundColor: 'red'
+              }
+            }} 
+          />
+        </div>
+
+        {/* TEXT THREE */}
+        <div className="image-editor-field-wrapper">
+          <label>Name Three</label>
+          <input type="text" value={this.state.textThree} onChange={this.handleTextThreeChange}></input>
+        </div>
+
+        <div className="image-editor-field-wrapper">
+          <label>Font Size Three</label>
+          <Slider axis="x" x={this.state.textThreeSize} onChange={this.handleTextThreeSizeChange} 
+            styles={{
+              track: {
+                backgroundColor: 'black',
+                borderColor: 'red',
+                borderWidth: '2'
+              },
+              active: {
+                backgroundColor: 'red'
+              }
+            }} 
+          />
+        </div>
+
         <div className="image-editor-field-wrapper">
           <button onClick={this.saveImageAs}>Save Image</button>
         </div>
