@@ -1,8 +1,11 @@
 @font-face {
   font-family: 'RockSalt';
   src: url('./rocksalt.ttf') format('truetype');
-  /* other formats include: 'woff2', 'truetype, 'opentype',
-                            'embedded-opentype', and 'svg' */
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('./Montserrat-Light.ttf') format('truetype');
 }
 
 html,
