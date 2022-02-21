@@ -70,7 +70,7 @@ class ImageEditor extends Component {
       textThree: "",
       textThreeSize: 15,
       textThreeShow: false,
-      imageUrl: 'htts://' + window.location.host + '/one.jpg',
+      imageUrl: 'https://' + window.location.host + '/one.jpg',
       selectedShapeName: ""
     }
 
