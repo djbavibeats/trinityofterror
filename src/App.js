@@ -70,7 +70,7 @@ class ImageEditor extends Component {
       textThree: "",
       textThreeSize: 15,
       textThreeShow: false,
-      imageUrl: 'http://' + window.location.host + '/one.jpg',
+      imageUrl: 'htts://' + window.location.host + '/one.jpg',
       selectedShapeName: ""
     }
 
@@ -116,7 +116,7 @@ class ImageEditor extends Component {
     console.log(image)
     switch (image) {
       case ('one'):
-        this.setState({ imageUrl: 'http://' + window.location.host + '/one.jpg',
+        this.setState({ imageUrl: 'https://' + window.location.host + '/one.jpg',
         textOneShow: true,
         textTwoShow: false,
         textThreeShow: false
@@ -124,20 +124,20 @@ class ImageEditor extends Component {
         break;
       case ('two'):
         this.setState({ 
-          imageUrl: 'http://' + window.location.host + '/two.jpg',
+          imageUrl: 'https://' + window.location.host + '/two.jpg',
           textOneShow: false,
           textTwoShow: true,
           textThreeShow: true
         })
         break;
       case ('three'):
-        this.setState({ imageUrl: 'http://' + window.location.host + '/three.jpg',
+        this.setState({ imageUrl: 'https://' + window.location.host + '/three.jpg',
         textOneShow: true,
         textTwoShow: true,
         textThreeShow: true })
         break;
       default:
-        this.setState({ imageUrl: 'http://' + window.location.host + '/one.jpg' })
+        this.setState({ imageUrl: 'https://' + window.location.host + '/one.jpg' })
     }
   }
 
