@@ -264,9 +264,9 @@ class ImageEditor extends Component {
       <div className='image-editor-wrapper'>
         <div className="image-editor-field-wrapper guest-buttons-row">
             <div className="image-editor-field-wrapper guest-buttons">
-                <button onClick={() => this.handlePictureChange('one')}><img src={this.state.clawOneActive ? OneOn : OneOff} style={{ width: '80px' }} /></button>
-                <button onClick={() => this.handlePictureChange('two')}><img src={this.state.clawTwoActive ? TwoOn : TwoOff} style={{ width: '80px' }} /></button>
-                <button onClick={() => this.handlePictureChange('three')}><img src={this.state.clawThreeActive ? ThreeOn : ThreeOff} style={{ width: '80px' }} /></button>
+                <button onClick={() => this.handlePictureChange('one')}><img alt="claw-one" src={this.state.clawOneActive ? OneOn : OneOff} style={{ width: '80px' }} /></button>
+                <button onClick={() => this.handlePictureChange('two')}><img alt="claw-two" src={this.state.clawTwoActive ? TwoOn : TwoOff} style={{ width: '80px' }} /></button>
+                <button onClick={() => this.handlePictureChange('three')}><img alt="claw-three" src={this.state.clawThreeActive ? ThreeOn : ThreeOff} style={{ width: '80px' }} /></button>
             </div>
         </div>
         {/* TEXT ONE */}
