@@ -54,33 +54,60 @@ body {
 .image-editor-field-wrapper {
   display: flex;
   flex-direction: column;
-  padding-bottom: 25px;
-  color: red;
+  padding-bottom: 12.5px;
+  color: #BC271D;
   font-family: 'Montserrat';
   font-weight: 300;
   font-size: 20px;
-  width: 300px;
+  /* width: 300px; */
 }
 
 input {
   background: black;
-  color: red;
+  color: #BC271D;
   border-width: 0px 0px 2px 0px;
-  border-color: red;
+  border-color: #BC271D;
   outline: none;
   font-size: 20px;
   font-family: 'Montserrat';
   font-weight: 300;
 }
 
+input::placeholder {
+  color: #BC271D;
+}
+
 button {
-  background: red;
+  background: black;
   border: none;
-  color: black !important;
+  color: #BC271D !important;
   font-family: 'Montserrat';
   font-weight: 300;
   padding: 14px 0px;
   font-size: 20px;
+}
+
+.submit-button {
+  background: black;
+  border: 1px solid #BC271D;
+  padding: 0px 0px !important;
+  margin-bottom: 25px;
+  margin-top: 25px;
+}
+
+.guest-buttons-row {
+  flex-direction: row !important;
+}
+
+.guest-buttons-row label {
+  flex: 1;
+}
+
+.guest-buttons button {
+  background: rgba(0,0,0,0);
+  color: white !important;
+  flex-direction: row;
+  flex: 1;
 }
 
 button a {
@@ -109,6 +136,20 @@ button:hover {
   padding-bottom: 0px;
 }
 
+.image-editor-field-wrapper.font-size {
+  flex-direction: row;
+  align-items: center;
+}
+
+.image-editor-field-wrapper.font-size label {
+  flex: .75;
+  padding-top: 11px;
+}
+
+.image-editor-field-wrapper.font-size {
+  flex: 1;
+}
+
 @media screen and (max-width: 767px) {
   .main-content-wrapper {
     flex-direction: column
@@ -128,9 +169,27 @@ button:hover {
 
   .image-editor-wrapper {
     padding-left: 0px;
+    width: 300px;
+    padding-top: 0px;
   }
 
   .image-editor-field-wrapper {
-    margin: 0 auto;
+    /* margin: 0 auto; */
+    padding-bottom: 6px;
+  }
+
+  input {
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    font-size: 18px;
+  }
+
+  .image-editor-field-wrapper.guest-buttons-row button {
+    margin-right: auto;
+  }
+
+  .image-editor-field-wrapper, button {
+    font-size: 18px;
+    padding-bottom: 10px;
   }
 }

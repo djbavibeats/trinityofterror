@@ -4,6 +4,12 @@ import { Stage, Layer, Text, Image } from 'react-konva'
 // import useImage from 'use-image'
 
 import TourLogo from './trinityofterrorlogo.png'
+import OneOn from './one-on.png'
+import OneOff from './one-off.png'
+import TwoOn from './two-on.png'
+import TwoOff from './two-off.png'
+import ThreeOn from './three-on.png'
+import ThreeOff from './three-off.png'
 // import PictureBackground from './picturebackground.jpg'
 
 // Load image
@@ -70,10 +76,18 @@ class ImageEditor extends Component {
       textThree: "",
       textThreeSize: 15,
       textThreeShow: false,
-      imageUrl: 'https://' + window.location.host + '/one.jpg',
-      selectedShapeName: ""
+      imageUrl: 'https://' + window.location.host + '/one-grave.jpg',
+      selectedShapeName: "",
+      clawOneActive: true,
+      clawTwoActive: false,
+      clawThreeActive: false,
+      textOneX: 125,
+      textOneY: 150,
+      textTwoX: 0,
+      textTwoY: 0,
+      textThreeX: 0,
+      textThreeY: 0
     }
-
 
     this.handleTextOneChange = this.handleTextOneChange.bind(this)
     this.handleTextOneSizeChange = this.handleTextOneSizeChange.bind(this)
@@ -116,28 +130,56 @@ class ImageEditor extends Component {
     console.log(image)
     switch (image) {
       case ('one'):
-        this.setState({ imageUrl: 'https://' + window.location.host + '/one.jpg',
+        this.setState({ imageUrl: 'https://' + window.location.host + '/one-grave.jpg',
         textOneShow: true,
         textTwoShow: false,
-        textThreeShow: false
+        textThreeShow: false,
+        clawOneActive: true,
+        clawTwoActive: false,
+        clawThreeActive: false,
+        textOneX: 125,
+        textOneY: 150,
+        textTwoX: 0,
+        textTwoY: 0,
+        textThreeX: 0,
+        textThreeY: 0
         })
         break;
       case ('two'):
         this.setState({ 
-          imageUrl: 'https://' + window.location.host + '/two.jpg',
-          textOneShow: false,
+          imageUrl: 'https://' + window.location.host + '/two-graves.jpg',
+          textOneShow: true,
           textTwoShow: true,
-          textThreeShow: true
+          textThreeShow: false,
+          clawOneActive: false,
+          clawTwoActive: true,
+          clawThreeActive: false,
+          textOneX: 70,
+          textOneY: 150,
+          textTwoX: 200,
+          textTwoY: 135,
+          textThreeX: 0,
+          textThreeY: 0
         })
         break;
       case ('three'):
-        this.setState({ imageUrl: 'https://' + window.location.host + '/three.jpg',
-        textOneShow: true,
-        textTwoShow: true,
-        textThreeShow: true })
+        this.setState({ imageUrl: 'https://' + window.location.host + '/three-graves.jpg',
+          textOneShow: true,
+          textTwoShow: true,
+          textThreeShow: true,
+          clawOneActive: false,
+          clawTwoActive: false,
+          clawThreeActive: true,
+          textOneX: 40,
+          textOneY: 150,
+          textTwoX: 215,
+          textTwoY: 140,
+          textThreeX: 125,
+          textThreeY: 135
+        })
         break;
       default:
-        this.setState({ imageUrl: 'https://' + window.location.host + '/one.jpg' })
+        this.setState({ imageUrl: 'https://' + window.location.host + '/one-grave.jpg' })
     }
   }
 
@@ -189,7 +231,7 @@ class ImageEditor extends Component {
     let textThreeY = 0;
     if (window.innerWidth <= 767) {
       stageWidth = 300;
-      stageHeight = 392.25;
+      stageHeight = 300;
       textOneX = 125;
       textOneY = 210;
       textTwoX = 40;
@@ -198,7 +240,7 @@ class ImageEditor extends Component {
       textThreeY = 200;
     } else {
       stageWidth = 600;
-      stageHeight = 784.5
+      stageHeight = 600;;
       textOneX = 400;
       textOneY = 460;
     }
@@ -213,89 +255,86 @@ class ImageEditor extends Component {
         <Layer>
         {/* <Tombstone /> */}
         <URLImage src={this.state.imageUrl} width={stageWidth} height={stageHeight} />
-          <Text visible={this.state.textOneShow} draggable name="text" fontFamily='RockSalt' fontSize={this.state.textOneSize} text={this.state.textOne} fill='red' x={textOneX} y={textOneY} />
-          <Text visible={this.state.textTwoShow} draggable name="text" fontFamily='RockSalt' fontSize={this.state.textTwoSize} text={this.state.textTwo} fill='red' x={textTwoX} y={textTwoY} />
-          <Text visible={this.state.textThreeShow} draggable name="text" fontFamily='RockSalt' fontSize={this.state.textThreeSize} text={this.state.textThree} fill='red' x={textThreeX} y={textThreeY} />
+          <Text visible={this.state.textOneShow} draggable name="text" fontFamily='RockSalt' fontSize={this.state.textOneSize} text={this.state.textOne} fill='#BC271D' x={this.state.textOneX} y={this.state.textOneY} />
+          <Text visible={this.state.textTwoShow} draggable name="text" fontFamily='RockSalt' fontSize={this.state.textTwoSize} text={this.state.textTwo} fill='#BC271D' x={this.state.textTwoX} y={this.state.textTwoY} />
+          <Text visible={this.state.textThreeShow} draggable name="text" fontFamily='RockSalt' fontSize={this.state.textThreeSize} text={this.state.textThree} fill='#BC271D' x={this.state.textThreeX} y={this.state.textThreeY} />
         </Layer>
       </Stage>
       </div>
       <div className='image-editor-wrapper'>
-        <div className="image-editor-field-wrapper guest-buttons-label">
-            <label>Number of Guests</label>
-        </div>
-        <div className="image-editor-field-wrapper guest-buttons">
-          <button onClick={() => this.handlePictureChange('one')}>One</button>
-          <button onClick={() => this.handlePictureChange('two')}>Two</button>
-          <button onClick={() => this.handlePictureChange('three')}>Three</button>
+        <div className="image-editor-field-wrapper guest-buttons-row">
+            <div className="image-editor-field-wrapper guest-buttons">
+                <button onClick={() => this.handlePictureChange('one')}><img src={this.state.clawOneActive ? OneOn : OneOff} style={{ width: '80px' }} /></button>
+                <button onClick={() => this.handlePictureChange('two')}><img src={this.state.clawTwoActive ? TwoOn : TwoOff} style={{ width: '80px' }} /></button>
+                <button onClick={() => this.handlePictureChange('three')}><img src={this.state.clawThreeActive ? ThreeOn : ThreeOff} style={{ width: '80px' }} /></button>
+            </div>
         </div>
         {/* TEXT ONE */}
         <div className="image-editor-field-wrapper">
-          <label>Name One</label>
-          <input type="text" value={this.state.textOne} onChange={this.handleTextOneChange}></input>
+          <input placeholder="Name" type="text" value={this.state.textOne} onChange={this.handleTextOneChange}></input>
         </div>
 
-        <div className="image-editor-field-wrapper">
-          <label>Font Size One</label>
+        <div className="image-editor-field-wrapper font-size">
           <Slider axis="x" x={this.state.textOneSize} onChange={this.handleTextOneSizeChange} 
             styles={{
               track: {
                 backgroundColor: 'black',
-                borderColor: 'red',
+                borderColor: '#BC271D',
                 borderWidth: '2'
               },
               active: {
-                backgroundColor: 'red'
+                backgroundColor: '#BC271D'
               }
             }} 
           />
         </div>
 
         {/* TEXT TWO */}
-        <div className="image-editor-field-wrapper">
-          <label>Name Two</label>
-          <input type="text" value={this.state.textTwo} onChange={this.handleTextTwoChange}></input>
-        </div>
+        <div style={{ display: this.state.textTwoShow ? 'block' : 'none' }}>
+          <div className="image-editor-field-wrapper">
+            <input placeholder="Name" type="text" value={this.state.textTwo} onChange={this.handleTextTwoChange}></input>
+          </div>
 
-        <div className="image-editor-field-wrapper">
-          <label>Font Size Two</label>
-          <Slider axis="x" x={this.state.textTwoSize} onChange={this.handleTextTwoSizeChange} 
-            styles={{
-              track: {
-                backgroundColor: 'black',
-                borderColor: 'red',
-                borderWidth: '2'
-              },
-              active: {
-                backgroundColor: 'red'
-              }
-            }} 
-          />
+          <div className="image-editor-field-wrapper font-size">
+            <Slider axis="x" x={this.state.textTwoSize} onChange={this.handleTextTwoSizeChange} 
+              styles={{
+                track: {
+                  backgroundColor: 'black',
+                  borderColor: '#BC271D',
+                  borderWidth: '2'
+                },
+                active: {
+                  backgroundColor: '#BC271D'
+                }
+              }} 
+            />
+          </div>
         </div>
 
         {/* TEXT THREE */}
+        <div style={{ display: this.state.textThreeShow ? 'block' : 'none' }}>
         <div className="image-editor-field-wrapper">
-          <label>Name Three</label>
-          <input type="text" value={this.state.textThree} onChange={this.handleTextThreeChange}></input>
+          <input placeholder="Name" type="text" value={this.state.textThree} onChange={this.handleTextThreeChange}></input>
         </div>
 
-        <div className="image-editor-field-wrapper">
-          <label>Font Size Three</label>
+        <div className="image-editor-field-wrapper font-size">
           <Slider axis="x" x={this.state.textThreeSize} onChange={this.handleTextThreeSizeChange} 
             styles={{
               track: {
                 backgroundColor: 'black',
-                borderColor: 'red',
+                borderColor: '#BC271D',
                 borderWidth: '2'
               },
               active: {
-                backgroundColor: 'red'
+                backgroundColor: '#BC271D'
               }
             }} 
           />
         </div>
+        </div>
 
-        <div className="image-editor-field-wrapper">
-          <button onClick={this.saveImageAs}>Save Image</button>
+        <div className="image-editor-field-wrapper submit-button">
+          <button onClick={this.saveImageAs}>SHARE</button>
         </div>
       </div>
     </div>
