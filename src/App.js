@@ -223,26 +223,26 @@ class ImageEditor extends Component {
   render() {
     let stageWidth = 0;
     let stageHeight = 0;
-    let textOneX = 0;
-    let textOneY = 0;
-    let textTwoX = 0;
-    let textTwoY = 0;
-    let textThreeX = 0;
-    let textThreeY = 0;
+    // let textOneX = 0;
+    // let textOneY = 0;
+    // let textTwoX = 0;
+    // let textTwoY = 0;
+    // let textThreeX = 0;
+    // let textThreeY = 0;
     if (window.innerWidth <= 767) {
       stageWidth = 300;
       stageHeight = 300;
-      textOneX = 125;
-      textOneY = 210;
-      textTwoX = 40;
-      textTwoY = 210;
-      textThreeX = 210;
-      textThreeY = 200;
+      // textOneX = 125;
+      // textOneY = 210;
+      // textTwoX = 40;
+      // textTwoY = 210;
+      // textThreeX = 210;
+      // textThreeY = 200;
     } else {
       stageWidth = 600;
       stageHeight = 600;;
-      textOneX = 400;
-      textOneY = 460;
+      // textOneX = 400;
+      // textOneY = 460;
     }
 
     return (<>
