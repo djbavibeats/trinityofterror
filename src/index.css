@@ -8,6 +8,11 @@
   src: url('./Montserrat-Light.ttf') format('truetype');
 }
 
+@font-face {
+  font-family: 'Awakening';
+  src: url('./awakenning.ttf') format('truetype');
+}
+
 html,
 body {
   /* background: black; */
@@ -67,7 +72,7 @@ body {
 }
 
 input {
-  background: black;
+  background: transparent;
   color: #BC271D;
   border-width: 0px 0px 2px 0px;
   border-color: #BC271D;
@@ -153,6 +158,51 @@ button:hover {
 .image-editor-field-wrapper.font-size {
   flex: 1;
 }
+
+.share-button-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.share-button-wrapper {
+  background: black;
+  border: 1px solid #BC271D;
+  padding: 15px 15px !important;
+  /* margin-bottom: 25px; */
+  /* margin-top: 25px; */
+  margin: 10px 10px 0px 10px;
+  text-align: center;
+}
+
+.share-button-header {
+  font-family: 'Montserrat';
+  color: #BC271D;
+  padding: 0px 20px;
+  font-size: 32px;
+  font-weight: 100;
+  text-align: center;
+}
+.reset-editor-wrapper {
+  background: black;
+  border: 1px solid #BC271D;
+  margin: 50px;
+  text-align: center;
+  padding: 15px 15px;
+}
+.reset-editor-wrapper button {
+  padding: 0px !important;
+}
+
+.share-button-wrapper a {
+  color: #BC271D !important;
+  text-decoration: none;
+  font-size: 14px;
+  font-family: 'Montserrat';
+  margin-top: 25px !important;
+}
+
 
 @media screen and (max-width: 767px) {
   .main-content-wrapper {

@@ -86,8 +86,11 @@ class ImageEditor extends Component {
       textTwoX: 0,
       textTwoY: 0,
       textThreeX: 0,
-      textThreeY: 0
+      textThreeY: 0,
+      contentToShow: 'imageEditor'
     }
+
+    this.resetEditor = this.resetEditor.bind(this)
 
     this.handleTextOneChange = this.handleTextOneChange.bind(this)
     this.handleTextOneSizeChange = this.handleTextOneSizeChange.bind(this)
@@ -100,6 +103,10 @@ class ImageEditor extends Component {
 
     this.saveImageAs = this.saveImageAs.bind(this)
     this.handlePictureChange = this.handlePictureChange.bind(this)
+  }
+
+  resetEditor() {
+    this.setState({ contentToShow: 'imageEditor' })
   }
 
   handleTextOneChange(event) {
@@ -127,7 +134,6 @@ class ImageEditor extends Component {
   }
 
   handlePictureChange(image) {
-    console.log(image)
     switch (image) {
       case ('one'):
         this.setState({ imageUrl: 'https://' + window.location.host + '/one-grave.jpg',
@@ -197,7 +203,10 @@ class ImageEditor extends Component {
         text: `I'm going to the Trinity of Terror Tour!`,
         files: file
       })
-        .then(() => console.log('Successful share'))
+        .then(() => {
+          console.log('Successful share')
+          this.setState({ contentToShow: 'listenButtons' })
+        })
         .catch((error) => console.log('Error sharing', error));
     }
 
@@ -244,102 +253,121 @@ class ImageEditor extends Component {
       // textOneX = 400;
       // textOneY = 460;
     }
-
-    return (<>
-    <div className="header">
-      <img className="tour-logo" alt="tour-logo" src={TourLogo} />
-    </div>
-    <div className="main-content-wrapper" id="main-content-wrapper">
-      <div className='konva-wrapper'>
-      <Stage width={stageWidth} height={stageHeight} onTouchStart={this.handleStageMouseDown} onMouseDown={this.handleStageMouseDown}>
-        <Layer>
-        {/* <Tombstone /> */}
-        <URLImage src={this.state.imageUrl} width={stageWidth} height={stageHeight} />
-          <Text visible={this.state.textOneShow} draggable name="text" fontFamily='RockSalt' fontSize={this.state.textOneSize} text={this.state.textOne} fill='#BC271D' x={this.state.textOneX} y={this.state.textOneY} />
-          <Text visible={this.state.textTwoShow} draggable name="text" fontFamily='RockSalt' fontSize={this.state.textTwoSize} text={this.state.textTwo} fill='#BC271D' x={this.state.textTwoX} y={this.state.textTwoY} />
-          <Text visible={this.state.textThreeShow} draggable name="text" fontFamily='RockSalt' fontSize={this.state.textThreeSize} text={this.state.textThree} fill='#BC271D' x={this.state.textThreeX} y={this.state.textThreeY} />
-        </Layer>
-      </Stage>
-      </div>
-      <div className='image-editor-wrapper'>
-        <div className="image-editor-field-wrapper guest-buttons-row">
-            <div className="image-editor-field-wrapper guest-buttons">
-                <button onClick={() => this.handlePictureChange('one')}><img alt="claw-one" src={this.state.clawOneActive ? OneOn : OneOff} style={{ width: '80px' }} /></button>
-                <button onClick={() => this.handlePictureChange('two')}><img alt="claw-two" src={this.state.clawTwoActive ? TwoOn : TwoOff} style={{ width: '80px' }} /></button>
-                <button onClick={() => this.handlePictureChange('three')}><img alt="claw-three" src={this.state.clawThreeActive ? ThreeOn : ThreeOff} style={{ width: '80px' }} /></button>
+    if (this.state.contentToShow === 'imageEditor') {
+        return (<>
+        <div className="header">
+          <img className="tour-logo" alt="tour-logo" src={TourLogo} />
+        </div>
+        <div className="main-content-wrapper" id="main-content-wrapper">
+          <div className='konva-wrapper'>
+          <Stage width={stageWidth} height={stageHeight} onTouchStart={this.handleStageMouseDown} onMouseDown={this.handleStageMouseDown}>
+            <Layer>
+            {/* <Tombstone /> */}
+            <URLImage src={this.state.imageUrl} width={stageWidth} height={stageHeight} />
+              <Text visible={this.state.textOneShow} draggable name="text"  fontFamily='Awakening' fillEnabled={true} fillPatternImage={this.state.imageUrl} fontSize={this.state.textOneSize} text={this.state.textOne} fill='#111111' x={this.state.textOneX} y={this.state.textOneY} />
+              <Text visible={this.state.textTwoShow} draggable name="text" fontFamily='Awakening' fontSize={this.state.textTwoSize} text={this.state.textTwo} fill='#111111' x={this.state.textTwoX} y={this.state.textTwoY} />
+              <Text visible={this.state.textThreeShow} draggable name="text" fontFamily='Awakening' fontSize={this.state.textThreeSize} text={this.state.textThree} fill='#111111' x={this.state.textThreeX} y={this.state.textThreeY} />
+            </Layer>
+          </Stage>
+          </div>
+          <div className='image-editor-wrapper'>
+            <div className="image-editor-field-wrapper guest-buttons-row">
+                <div className="image-editor-field-wrapper guest-buttons">
+                    <button onClick={() => this.handlePictureChange('one')}><img alt="claw-one" src={this.state.clawOneActive ? OneOn : OneOff} style={{ width: '80px' }} /></button>
+                    <button onClick={() => this.handlePictureChange('two')}><img alt="claw-two" src={this.state.clawTwoActive ? TwoOn : TwoOff} style={{ width: '80px' }} /></button>
+                    <button onClick={() => this.handlePictureChange('three')}><img alt="claw-three" src={this.state.clawThreeActive ? ThreeOn : ThreeOff} style={{ width: '80px' }} /></button>
+                </div>
             </div>
-        </div>
-        {/* TEXT ONE */}
-        <div className="image-editor-field-wrapper">
-          <input placeholder="Name" type="text" value={this.state.textOne} onChange={this.handleTextOneChange}></input>
-        </div>
-
-        <div className="image-editor-field-wrapper font-size">
-          <Slider axis="x" x={this.state.textOneSize} onChange={this.handleTextOneSizeChange} 
-            styles={{
-              track: {
-                backgroundColor: 'black',
-                borderColor: '#BC271D',
-                borderWidth: '2'
-              },
-              active: {
-                backgroundColor: '#BC271D'
-              }
-            }} 
-          />
-        </div>
-
-        {/* TEXT TWO */}
-        <div style={{ display: this.state.textTwoShow ? 'block' : 'none' }}>
-          <div className="image-editor-field-wrapper">
-            <input placeholder="Name" type="text" value={this.state.textTwo} onChange={this.handleTextTwoChange}></input>
+            {/* TEXT ONE */}
+            <div className="image-editor-field-wrapper">
+              <input placeholder="Your Name" type="text" value={this.state.textOne} onChange={this.handleTextOneChange}></input>
+            </div>
+    
+            <div className="image-editor-field-wrapper font-size">
+              <Slider axis="x" x={this.state.textOneSize} onChange={this.handleTextOneSizeChange} 
+                styles={{
+                  track: {
+                    backgroundColor: 'black',
+                    borderColor: '#BC271D',
+                    borderWidth: '2'
+                  },
+                  active: {
+                    backgroundColor: '#BC271D'
+                  }
+                }} 
+              />
+            </div>
+    
+            {/* TEXT TWO */}
+            <div style={{ display: this.state.textTwoShow ? 'block' : 'none' }}>
+              <div className="image-editor-field-wrapper">
+                <input placeholder="Friend Two" type="text" value={this.state.textTwo} onChange={this.handleTextTwoChange}></input>
+              </div>
+    
+              <div className="image-editor-field-wrapper font-size">
+                <Slider axis="x" x={this.state.textTwoSize} onChange={this.handleTextTwoSizeChange} 
+                  styles={{
+                    track: {
+                      backgroundColor: 'black',
+                      borderColor: '#BC271D',
+                      borderWidth: '2'
+                    },
+                    active: {
+                      backgroundColor: '#BC271D'
+                    }
+                  }} 
+                />
+              </div>
+            </div>
+    
+            {/* TEXT THREE */}
+            <div style={{ display: this.state.textThreeShow ? 'block' : 'none' }}>
+            <div className="image-editor-field-wrapper">
+              <input placeholder="Friend Three" type="text" value={this.state.textThree} onChange={this.handleTextThreeChange}></input>
+            </div>
+    
+            <div className="image-editor-field-wrapper font-size">
+              <Slider axis="x" x={this.state.textThreeSize} onChange={this.handleTextThreeSizeChange} 
+                styles={{
+                  track: {
+                    backgroundColor: 'black',
+                    borderColor: '#BC271D',
+                    borderWidth: '2'
+                  },
+                  active: {
+                    backgroundColor: '#BC271D'
+                  }
+                }} 
+              />
+            </div>
+            </div>
+    
+            <div className="image-editor-field-wrapper submit-button">
+              <button onClick={this.saveImageAs}>SHARE</button>
+            </div>
           </div>
-
-          <div className="image-editor-field-wrapper font-size">
-            <Slider axis="x" x={this.state.textTwoSize} onChange={this.handleTextTwoSizeChange} 
-              styles={{
-                track: {
-                  backgroundColor: 'black',
-                  borderColor: '#BC271D',
-                  borderWidth: '2'
-                },
-                active: {
-                  backgroundColor: '#BC271D'
-                }
-              }} 
-            />
-          </div>
         </div>
-
-        {/* TEXT THREE */}
-        <div style={{ display: this.state.textThreeShow ? 'block' : 'none' }}>
-        <div className="image-editor-field-wrapper">
-          <input placeholder="Name" type="text" value={this.state.textThree} onChange={this.handleTextThreeChange}></input>
+        </>)
+      } else if (this.state.contentToShow === 'listenButtons') {
+        return (<>
+        <div className="share-button-container">
+          <h2 className="share-button-header">GET READY <br />FOR THE TERROR</h2>
+        <div className="share-button-wrapper">
+          <a target="_blank" rel="noopener noreferrer" href="https://found.ee/miwlinkinbio">PRE-SAVE MOTIONLESS IN WHITE'S NEW ALBUM <span style={{ fontStyle: 'italic' }}>NEW ALBUM NAME</span></a>
         </div>
-
-        <div className="image-editor-field-wrapper font-size">
-          <Slider axis="x" x={this.state.textThreeSize} onChange={this.handleTextThreeSizeChange} 
-            styles={{
-              track: {
-                backgroundColor: 'black',
-                borderColor: '#BC271D',
-                borderWidth: '2'
-              },
-              active: {
-                backgroundColor: '#BC271D'
-              }
-            }} 
-          />
+        <div className="share-button-wrapper">
+          <a target="_blank" rel="noopener noreferrer" href="https://found.ee/horrorwood?utm_medium=social&utm_source=linktree&utm_campaign=the+silver+scream+2%3A+welcome+to+horrorwood">LISTEN TO ICE NINE KILL'S NEW ALBUM <span style={{ fontStyle: 'italic' }}>WELCOME TO HORRORWOOD: THE SILVER SCREAM 2</span></a>
+        </div>
+        <div className="share-button-wrapper">
+          <a target="_blank" rel="noopener noreferrer" href="https://smarturl.it/PhantomTomorrow">LISTEN TO BLACK VEIL BRIDES' ALBUM <span style={{ fontStyle: 'italic' }}>THE PHANTOM TOMORROW</span></a>
+        </div>
+        <div className="reset-editor-wrapper">
+          <button onClick={this.resetEditor}>Reset Editor</button>
         </div>
         </div>
-
-        <div className="image-editor-field-wrapper submit-button">
-          <button onClick={this.saveImageAs}>SHARE</button>
-        </div>
-      </div>
-    </div>
-    </>)
-  }
+        </>)
+      }
+    }
 }
 
 function App() {
