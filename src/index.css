@@ -137,6 +137,10 @@ button:hover {
   margin: 0;
 }
 
+.image-editor-text-wrapper.dig p {
+  margin-top: 15px;
+} 
+
 .image-editor-text-wrapper.carve p {
   margin-bottom: 15px;
 }
