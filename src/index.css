@@ -126,6 +126,21 @@ button:hover {
   cursor: pointer;
 }
 
+.image-editor-text-wrapper {
+  color: #BC271D;
+  font-family: 'Montserrat';
+  font-size: 24px;
+  text-align: center;
+}
+
+.image-editor-text-wrapper p {
+  margin: 0;
+}
+
+.image-editor-text-wrapper.carve p {
+  margin-bottom: 15px;
+}
+ 
 .image-editor-field-wrapper label {
   padding-bottom: 10px;
 }

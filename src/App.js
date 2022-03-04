@@ -270,6 +270,9 @@ class ImageEditor extends Component {
             </Layer>
           </Stage>
           </div>
+          <div className="image-editor-text-wrapper">
+            <p>DIG YOUR GRAVES</p>
+          </div>
           <div className='image-editor-wrapper'>
             <div className="image-editor-field-wrapper guest-buttons-row">
                 <div className="image-editor-field-wrapper guest-buttons">
@@ -278,6 +281,9 @@ class ImageEditor extends Component {
                     <button onClick={() => this.handlePictureChange('three')}><img alt="claw-three" src={this.state.clawThreeActive ? ThreeOn : ThreeOff} style={{ width: '80px' }} /></button>
                 </div>
             </div>
+          <div className="image-editor-text-wrapper carve">
+              <p>CARVE YOUR NAMES</p>
+          </div>
             {/* TEXT ONE */}
             <div className="image-editor-field-wrapper">
               <input placeholder="Your Name" type="text" value={this.state.textOne} onChange={this.handleTextOneChange}></input>
