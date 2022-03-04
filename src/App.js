@@ -270,10 +270,10 @@ class ImageEditor extends Component {
             </Layer>
           </Stage>
           </div>
-          <div className="image-editor-text-wrapper">
+          <div className="image-editor-text-wrapper dig">
             <p>DIG YOUR GRAVES</p>
           </div>
-          <div className='image-editor-wrapper dig'>
+          <div className='image-editor-wrapper'>
             <div className="image-editor-field-wrapper guest-buttons-row">
                 <div className="image-editor-field-wrapper guest-buttons">
                     <button onClick={() => this.handlePictureChange('one')}><img alt="claw-one" src={this.state.clawOneActive ? OneOn : OneOff} style={{ width: '80px' }} /></button>
