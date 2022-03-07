@@ -259,7 +259,7 @@ class ImageEditor extends Component {
           <Stage width={stageWidth} height={stageHeight} onTouchStart={this.handleStageMouseDown} onMouseDown={this.handleStageMouseDown}>
             <Layer>
             {/* <Tombstone /> */}
-            <URLImage src={this.state.imageUrl} width={stageWidth} height={stageHeight} />
+              <URLImage src={this.state.imageUrl} width={stageWidth} height={stageHeight} />
               <Text visible={this.state.textOneShow} draggable name="text"  fontFamily='Awakening' fillEnabled={true} fillPatternImage={this.state.imageUrl} fontSize={this.state.textOneSize} text={this.state.textOne} fill='#111111' x={this.state.textOneX} y={this.state.textOneY} />
               <Text visible={this.state.textTwoShow} draggable name="text" fontFamily='Awakening' fontSize={this.state.textTwoSize} text={this.state.textTwo} fill='#111111' x={this.state.textTwoX} y={this.state.textTwoY} />
               <Text visible={this.state.textThreeShow} draggable name="text" fontFamily='Awakening' fontSize={this.state.textThreeSize} text={this.state.textThree} fill='#111111' x={this.state.textThreeX} y={this.state.textThreeY} />
@@ -274,15 +274,13 @@ class ImageEditor extends Component {
                     <button onClick={() => this.handlePictureChange('three')}><img alt="claw-three" src={this.state.clawThreeActive ? ThreeOn : ThreeOff} style={{ width: '80px' }} /></button>
                 </div>
             </div>
-          <div className="image-editor-text-wrapper carve">
-              <p>CARVE YOUR NAMES</p>
-          </div>
+
             {/* TEXT ONE */}
             <div className="image-editor-field-wrapper">
-              <input placeholder="Your Name" type="text" value={this.state.textOne} onChange={this.handleTextOneChange}></input>
+              <input placeholder="Carve Your Name" type="text" value={this.state.textOne} onChange={this.handleTextOneChange}></input>
             </div>
     
-            <div className="image-editor-field-wrapper font-size">
+            {/* <div className="image-editor-field-wrapper font-size">
               <Slider axis="x" x={this.state.textOneSize} onChange={this.handleTextOneSizeChange} 
                 styles={{
                   track: {
@@ -295,7 +293,7 @@ class ImageEditor extends Component {
                   }
                 }} 
               />
-            </div>
+            </div> */}
     
             {/* TEXT TWO */}
             <div style={{ display: this.state.textTwoShow ? 'block' : 'none' }}>
@@ -303,7 +301,7 @@ class ImageEditor extends Component {
                 <input placeholder="Friend Two" type="text" value={this.state.textTwo} onChange={this.handleTextTwoChange}></input>
               </div>
     
-              <div className="image-editor-field-wrapper font-size">
+              {/* <div className="image-editor-field-wrapper font-size">
                 <Slider axis="x" x={this.state.textTwoSize} onChange={this.handleTextTwoSizeChange} 
                   styles={{
                     track: {
@@ -316,7 +314,7 @@ class ImageEditor extends Component {
                     }
                   }} 
                 />
-              </div>
+              </div> */}
             </div>
     
             {/* TEXT THREE */}
@@ -325,7 +323,7 @@ class ImageEditor extends Component {
               <input placeholder="Friend Three" type="text" value={this.state.textThree} onChange={this.handleTextThreeChange}></input>
             </div>
     
-            <div className="image-editor-field-wrapper font-size">
+            {/* <div className="image-editor-field-wrapper font-size">
               <Slider axis="x" x={this.state.textThreeSize} onChange={this.handleTextThreeSizeChange} 
                 styles={{
                   track: {
@@ -338,7 +336,7 @@ class ImageEditor extends Component {
                   }
                 }} 
               />
-            </div>
+            </div> */}
             </div>
     
             <div className="image-editor-field-wrapper submit-button">
