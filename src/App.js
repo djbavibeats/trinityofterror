@@ -267,7 +267,7 @@ class ImageEditor extends Component {
     if (this.state.contentToShow === 'imageEditor') {
         return (<>
         <header className="header">
-          <img className="tour-logo" src={Logo} />
+          <img className="tour-logo" alt="tour-logo" src={Logo} />
         </header>
         <div className="main-content-wrapper" id="main-content-wrapper">
           <div className='konva-wrapper'>
