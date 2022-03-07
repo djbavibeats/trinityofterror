@@ -68,21 +68,21 @@ class ImageEditor extends Component {
     super(props)
     this.state = {
       textOne: "",
-      textOneSize: 15,
+      textOneSize: 18,
       textOneShow: true,
       textTwo: "",
-      textTwoSize: 15,
+      textTwoSize: 18,
       textTwoShow: false,
       textThree: "",
-      textThreeSize: 15,
+      textThreeSize: 18,
       textThreeShow: false,
-      imageUrl: 'https://' + window.location.host + '/one-grave.jpg',
+      imageUrl: 'http://' + window.location.host + '/one-grave.jpg',
       selectedShapeName: "",
       clawOneActive: true,
       clawTwoActive: false,
       clawThreeActive: false,
-      textOneX: 125,
-      textOneY: 150,
+      textOneX: 110,
+      textOneY: 195,
       textTwoX: 0,
       textTwoY: 0,
       textThreeX: 0,
@@ -136,15 +136,15 @@ class ImageEditor extends Component {
   handlePictureChange(image) {
     switch (image) {
       case ('one'):
-        this.setState({ imageUrl: 'https://' + window.location.host + '/one-grave.jpg',
+        this.setState({ imageUrl: 'http://' + window.location.host + '/one-grave.jpg',
         textOneShow: true,
         textTwoShow: false,
         textThreeShow: false,
         clawOneActive: true,
         clawTwoActive: false,
         clawThreeActive: false,
-        textOneX: 125,
-        textOneY: 150,
+        textOneX: 110,
+        textOneY: 195,
         textTwoX: 0,
         textTwoY: 0,
         textThreeX: 0,
@@ -153,39 +153,39 @@ class ImageEditor extends Component {
         break;
       case ('two'):
         this.setState({ 
-          imageUrl: 'https://' + window.location.host + '/two-graves.jpg',
+          imageUrl: 'http://' + window.location.host + '/two-graves.jpg',
           textOneShow: true,
           textTwoShow: true,
           textThreeShow: false,
           clawOneActive: false,
           clawTwoActive: true,
           clawThreeActive: false,
-          textOneX: 70,
-          textOneY: 150,
-          textTwoX: 200,
-          textTwoY: 135,
+          textOneX: 50,
+          textOneY: 200,
+          textTwoX: 180,
+          textTwoY: 190,
           textThreeX: 0,
           textThreeY: 0
         })
         break;
       case ('three'):
-        this.setState({ imageUrl: 'https://' + window.location.host + '/three-graves.jpg',
+        this.setState({ imageUrl: 'http://' + window.location.host + '/three-graves.jpg',
           textOneShow: true,
           textTwoShow: true,
           textThreeShow: true,
           clawOneActive: false,
           clawTwoActive: false,
           clawThreeActive: true,
-          textOneX: 40,
-          textOneY: 150,
-          textTwoX: 215,
-          textTwoY: 140,
-          textThreeX: 125,
-          textThreeY: 135
+          textOneX: 35,
+          textOneY: 200,
+          textTwoX: 195,
+          textTwoY: 205,
+          textThreeX: 115,
+          textThreeY: 195
         })
         break;
       default:
-        this.setState({ imageUrl: 'https://' + window.location.host + '/one-grave.jpg' })
+        this.setState({ imageUrl: 'http://' + window.location.host + '/one-grave.jpg' })
     }
   }
 
@@ -239,8 +239,8 @@ class ImageEditor extends Component {
     // let textThreeX = 0;
     // let textThreeY = 0;
     if (window.innerWidth <= 767) {
-      stageWidth = 300;
-      stageHeight = 300;
+      stageWidth = 264.6;
+      stageHeight = 470.4;
       // textOneX = 125;
       // textOneY = 210;
       // textTwoX = 40;
@@ -248,8 +248,8 @@ class ImageEditor extends Component {
       // textThreeX = 210;
       // textThreeY = 200;
     } else {
-      stageWidth = 600;
-      stageHeight = 600;;
+      stageWidth = 378;
+      stageHeight = 672;
       // textOneX = 400;
       // textOneY = 460;
     }
