@@ -204,6 +204,7 @@ class ImageEditor extends Component {
       })
         .then(() => {
           console.log('Successful share')
+          alert('successful share')
           this.setState({ contentToShow: 'listenButtons' })
         })
         .catch((error) => console.log('Error sharing', error));
