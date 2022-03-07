@@ -30,7 +30,7 @@ body {
 }
 
 .tour-logo {
-  width: 350px;
+  width: 250px;
   margin: 0 auto;
 }
 
@@ -39,7 +39,7 @@ body {
   align-items: center;
   max-width: 1280px;
   margin: 0 auto;
-  padding-top: 25px;
+  padding-bottom: 25px;
 }
 
 .konva-wrapper {
@@ -68,8 +68,8 @@ body {
   color: #BC271D;
   font-family: 'Montserrat';
   font-weight: 300;
-  font-size: 20px;
-  /* width: 300px; */
+  font-size: 16px;
+  width: 300px;
 }
 
 input {
@@ -78,7 +78,7 @@ input {
   border-width: 0px 0px 2px 0px;
   border-color: #BC271D;
   outline: none;
-  font-size: 20px;
+  font-size: 16px;
   font-family: 'Montserrat';
   font-weight: 300;
 }
@@ -93,8 +93,8 @@ button {
   color: #BC271D !important;
   font-family: 'Montserrat';
   font-weight: 300;
-  padding: 14px 0px;
-  font-size: 20px;
+  padding: 8px 0px;
+  font-size: 16px;
 }
 
 .submit-button {
@@ -126,6 +126,12 @@ button a {
 }
 button:hover {
   cursor: pointer;
+}
+
+.image-editor-heading, .image-editor-instructions {
+  color: #BC271D;
+  font-family: 'Montserrat';
+  width: 375px;
 }
 
 .image-editor-text-wrapper {
@@ -221,15 +227,27 @@ button:hover {
 .share-button-wrapper a {
   color: #BC271D !important;
   text-decoration: none;
-  font-size: 14px;
+  font-size: 16px;
   font-family: 'Montserrat';
   margin-top: 25px !important;
 }
 
+.modal-content {
+  display: none;
+}
 
-@media screen and (max-width: 767px) {
+i {
+  padding-right: 10px;
+}
+
+@media screen and (max-width: 768px) {
+  .header {
+    display: none;
+  }
+
   .main-content-wrapper {
-    flex-direction: column
+    flex-direction: column;
+    padding-top: 25px;
   }
 
   .konva-wrapper {
@@ -242,6 +260,10 @@ button:hover {
 
   canvas {
     width: 300px !important;
+  }
+
+  .image-editor-heading, .image-editor-instructions {
+    display: none;
   }
 
   .image-editor-wrapper {
@@ -272,5 +294,44 @@ button:hover {
 
   button {
     font-size: 18px;
+    padding: 14px;
+  }
+
+  .modal-wrapper {
+    position: absolute;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,.6);
+    display: flex;
+    margin: 0 auto;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .modal-content {
+    width: 85%;
+    height: 300px;
+    display: flex;
+    top: 0;
+    bottom: 0;
+    border: 2px solid #BC271D;
+    padding: 10px;
+    border-radius: 3px;
+    margin: 0 auto;
+    background: black;
+    color: #BC271D;
+    flex-direction: column;
+    text-align: center;
+    font-family: 'Montserrat';
+  }
+  
+  .modal-content button {
+    background: transparent;
+    border: 2px solid #BC271D;
+    border-radius: 3px;
+    padding: 14px 0px !important;
+    margin-bottom: 25px;
+    margin-top: 25px;
   }
 }

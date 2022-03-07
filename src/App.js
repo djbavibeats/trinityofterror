@@ -3,6 +3,7 @@ import Slider from 'react-input-slider'
 import { Stage, Layer, Text, Image } from 'react-konva'
 // import useImage from 'use-image'
 
+import Logo from './trinityofterrorlogo.png'
 import OneOn from './one-on.png'
 import OneOff from './one-off.png'
 import TwoOn from './two-on.png'
@@ -21,6 +22,30 @@ import ThreeOff from './three-off.png'
 //   }
 // }
 
+class InstructionsModal extends React.Component {
+  constructor() {
+    super()
+    this.state = {
+
+    }
+  }
+
+  hideModal() {
+    document.getElementById('modal-wrapper').style.display = 'none'
+  }
+
+  render() {
+      return (<>
+      <div id="modal-wrapper" class="modal-wrapper">
+        <div className="modal-content">
+            <h2>THE TRINITY OF TERROR <br />TOUR IS UPON US</h2>
+            <p>Carve your name on the tombstone and seal your fate.</p>
+            <button onClick={() => { this.hideModal() }}>START</button>
+          </div>
+      </div>
+      </>)
+  }
+}
 
 class URLImage extends React.Component {
   state = {
@@ -75,7 +100,7 @@ class ImageEditor extends Component {
       textThree: "",
       textThreeSize: 18,
       textThreeShow: false,
-      imageUrl: 'https://' + window.location.host + '/one-grave.jpg',
+      imageUrl: 'http://' + window.location.host + '/one-grave.jpg',
       selectedShapeName: "",
       clawOneActive: true,
       clawTwoActive: false,
@@ -135,7 +160,7 @@ class ImageEditor extends Component {
   handlePictureChange(image) {
     switch (image) {
       case ('one'):
-        this.setState({ imageUrl: 'https://' + window.location.host + '/one-grave.jpg',
+        this.setState({ imageUrl: 'http://' + window.location.host + '/one-grave.jpg',
         textOneShow: true,
         textTwoShow: false,
         textThreeShow: false,
@@ -152,7 +177,7 @@ class ImageEditor extends Component {
         break;
       case ('two'):
         this.setState({ 
-          imageUrl: 'https://' + window.location.host + '/two-graves.jpg',
+          imageUrl: 'http://' + window.location.host + '/two-graves.jpg',
           textOneShow: true,
           textTwoShow: true,
           textThreeShow: false,
@@ -168,7 +193,7 @@ class ImageEditor extends Component {
         })
         break;
       case ('three'):
-        this.setState({ imageUrl: 'https://' + window.location.host + '/three-graves.jpg',
+        this.setState({ imageUrl: 'http://' + window.location.host + '/three-graves.jpg',
           textOneShow: true,
           textTwoShow: true,
           textThreeShow: true,
@@ -184,7 +209,7 @@ class ImageEditor extends Component {
         })
         break;
       default:
-        this.setState({ imageUrl: 'https://' + window.location.host + '/one-grave.jpg' })
+        this.setState({ imageUrl: 'http://' + window.location.host + '/one-grave.jpg' })
     }
   }
 
@@ -232,29 +257,18 @@ class ImageEditor extends Component {
   render() {
     let stageWidth = 0;
     let stageHeight = 0;
-    // let textOneX = 0;
-    // let textOneY = 0;
-    // let textTwoX = 0;
-    // let textTwoY = 0;
-    // let textThreeX = 0;
-    // let textThreeY = 0;
     if (window.innerWidth <= 767) {
       stageWidth = 264.6;
       stageHeight = 470.4;
-      // textOneX = 125;
-      // textOneY = 210;
-      // textTwoX = 40;
-      // textTwoY = 210;
-      // textThreeX = 210;
-      // textThreeY = 200;
     } else {
-      stageWidth = 378;
-      stageHeight = 672;
-      // textOneX = 400;
-      // textOneY = 460;
+      stageWidth = 264.6;
+      stageHeight = 470.4;
     }
     if (this.state.contentToShow === 'imageEditor') {
         return (<>
+        <header className="header">
+          <img className="tour-logo" src={Logo} />
+        </header>
         <div className="main-content-wrapper" id="main-content-wrapper">
           <div className='konva-wrapper'>
           <Stage width={stageWidth} height={stageHeight} onTouchStart={this.handleStageMouseDown} onMouseDown={this.handleStageMouseDown}>
@@ -268,6 +282,8 @@ class ImageEditor extends Component {
           </Stage>
           </div>
           <div className='image-editor-wrapper'>
+            <h2 className='image-editor-heading'>THE TRINITY OF TERROR <br />TOUR IS UPON US</h2>
+            <p className='image-editor-instructions'>Carve your name on the tombstone and seal your fate.</p>
             <div className="image-editor-field-wrapper guest-buttons-row">
                 <div className="image-editor-field-wrapper guest-buttons">
                     <button onClick={() => this.handlePictureChange('one')}><img alt="claw-one" src={this.state.clawOneActive ? OneOn : OneOff} style={{ width: '80px' }} /></button>
@@ -341,9 +357,10 @@ class ImageEditor extends Component {
             </div>
     
             <div className="image-editor-field-wrapper submit-button">
-              <button onClick={this.saveImageAs}>SHARE</button>
+              <button onClick={this.saveImageAs}><i class="fa-thin fa-share-nodes"></i> SPREAD</button>
             </div>
           </div>
+          <InstructionsModal />
         </div>
         </>)
       } else if (this.state.contentToShow === 'listenButtons') {
@@ -360,7 +377,7 @@ class ImageEditor extends Component {
           <a target="_blank" rel="noopener noreferrer" href="https://smarturl.it/PhantomTomorrow">LISTEN TO BLACK VEIL BRIDES' ALBUM <span style={{ fontStyle: 'italic' }}>THE PHANTOM TOMORROW</span></a>
         </div>
         <div className="reset-editor-wrapper">
-          <button onClick={this.resetEditor}>Reset Editor</button>
+          <button onClick={this.resetEditor}><i class="fa-thin fa-arrow-rotate-right"></i> RESET EDITOR</button>
         </div>
         </div>
         </>)
