@@ -3,7 +3,6 @@ import Slider from 'react-input-slider'
 import { Stage, Layer, Text, Image } from 'react-konva'
 // import useImage from 'use-image'
 
-import TourLogo from './trinityofterrorlogo.png'
 import OneOn from './one-on.png'
 import OneOff from './one-off.png'
 import TwoOn from './two-on.png'
@@ -136,7 +135,7 @@ class ImageEditor extends Component {
   handlePictureChange(image) {
     switch (image) {
       case ('one'):
-        this.setState({ imageUrl: 'http://' + window.location.host + '/one-grave.jpg',
+        this.setState({ imageUrl: 'https://' + window.location.host + '/one-grave.jpg',
         textOneShow: true,
         textTwoShow: false,
         textThreeShow: false,
@@ -153,7 +152,7 @@ class ImageEditor extends Component {
         break;
       case ('two'):
         this.setState({ 
-          imageUrl: 'http://' + window.location.host + '/two-graves.jpg',
+          imageUrl: 'https://' + window.location.host + '/two-graves.jpg',
           textOneShow: true,
           textTwoShow: true,
           textThreeShow: false,
@@ -169,7 +168,7 @@ class ImageEditor extends Component {
         })
         break;
       case ('three'):
-        this.setState({ imageUrl: 'http://' + window.location.host + '/three-graves.jpg',
+        this.setState({ imageUrl: 'https://' + window.location.host + '/three-graves.jpg',
           textOneShow: true,
           textTwoShow: true,
           textThreeShow: true,
@@ -185,7 +184,7 @@ class ImageEditor extends Component {
         })
         break;
       default:
-        this.setState({ imageUrl: 'http://' + window.location.host + '/one-grave.jpg' })
+        this.setState({ imageUrl: 'https://' + window.location.host + '/one-grave.jpg' })
     }
   }
 
@@ -255,9 +254,6 @@ class ImageEditor extends Component {
     }
     if (this.state.contentToShow === 'imageEditor') {
         return (<>
-        <div className="header">
-          <img className="tour-logo" alt="tour-logo" src={TourLogo} />
-        </div>
         <div className="main-content-wrapper" id="main-content-wrapper">
           <div className='konva-wrapper'>
           <Stage width={stageWidth} height={stageHeight} onTouchStart={this.handleStageMouseDown} onMouseDown={this.handleStageMouseDown}>
@@ -269,9 +265,6 @@ class ImageEditor extends Component {
               <Text visible={this.state.textThreeShow} draggable name="text" fontFamily='Awakening' fontSize={this.state.textThreeSize} text={this.state.textThree} fill='#111111' x={this.state.textThreeX} y={this.state.textThreeY} />
             </Layer>
           </Stage>
-          </div>
-          <div className="image-editor-text-wrapper dig">
-            <p>DIG YOUR GRAVES</p>
           </div>
           <div className='image-editor-wrapper'>
             <div className="image-editor-field-wrapper guest-buttons-row">
