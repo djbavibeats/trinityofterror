@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Slider from 'react-input-slider'
+// import Slider from 'react-input-slider'
 import { Stage, Layer, Text, Image } from 'react-konva'
 // import useImage from 'use-image'
 
