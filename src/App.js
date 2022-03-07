@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-// import Slider from 'react-input-slider'
+import Slider from 'react-input-slider'
 import { Stage, Layer, Text, Image } from 'react-konva'
 // import useImage from 'use-image'
 
@@ -75,7 +75,7 @@ class ImageEditor extends Component {
       textThree: "",
       textThreeSize: 18,
       textThreeShow: false,
-      imageUrl: 'http://' + window.location.host + '/one-grave.jpg',
+      imageUrl: 'https://' + window.location.host + '/one-grave.jpg',
       selectedShapeName: "",
       clawOneActive: true,
       clawTwoActive: false,
@@ -280,7 +280,7 @@ class ImageEditor extends Component {
               <input placeholder="Carve Your Name" type="text" value={this.state.textOne} onChange={this.handleTextOneChange}></input>
             </div>
     
-            {/* <div className="image-editor-field-wrapper font-size">
+            <div className="image-editor-field-wrapper font-size">
               <Slider axis="x" x={this.state.textOneSize} onChange={this.handleTextOneSizeChange} 
                 styles={{
                   track: {
@@ -293,7 +293,7 @@ class ImageEditor extends Component {
                   }
                 }} 
               />
-            </div> */}
+            </div>
     
             {/* TEXT TWO */}
             <div style={{ display: this.state.textTwoShow ? 'block' : 'none' }}>
@@ -301,7 +301,7 @@ class ImageEditor extends Component {
                 <input placeholder="Friend Two" type="text" value={this.state.textTwo} onChange={this.handleTextTwoChange}></input>
               </div>
     
-              {/* <div className="image-editor-field-wrapper font-size">
+              <div className="image-editor-field-wrapper font-size">
                 <Slider axis="x" x={this.state.textTwoSize} onChange={this.handleTextTwoSizeChange} 
                   styles={{
                     track: {
@@ -314,7 +314,7 @@ class ImageEditor extends Component {
                     }
                   }} 
                 />
-              </div> */}
+              </div>
             </div>
     
             {/* TEXT THREE */}
@@ -323,7 +323,7 @@ class ImageEditor extends Component {
               <input placeholder="Friend Three" type="text" value={this.state.textThree} onChange={this.handleTextThreeChange}></input>
             </div>
     
-            {/* <div className="image-editor-field-wrapper font-size">
+            <div className="image-editor-field-wrapper font-size">
               <Slider axis="x" x={this.state.textThreeSize} onChange={this.handleTextThreeSizeChange} 
                 styles={{
                   track: {
@@ -336,7 +336,7 @@ class ImageEditor extends Component {
                   }
                 }} 
               />
-            </div> */}
+            </div>
             </div>
     
             <div className="image-editor-field-wrapper submit-button">
