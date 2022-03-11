@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import Slider from 'react-input-slider'
-import { Stage, Layer, Text, Image } from 'react-konva'
-// import useImage from 'use-image'
+// import Slider from 'react-input-slider'
+import { Stage, Layer, Text, Image, Transformer, Group } from 'react-konva'
+// import { PinchGesture, DragGesture } from '@use-gesture/vanilla'
+// import { useSpring, animated } from '@react-spring/web'
 
 import Logo from './trinityofterrorlogo.png'
 import OneOn from './one-on.png'
@@ -10,17 +11,6 @@ import TwoOn from './two-on.png'
 import TwoOff from './two-off.png'
 import ThreeOn from './three-on.png'
 import ThreeOff from './three-off.png'
-// import PictureBackground from './picturebackground.jpg'
-
-// Load image
-// const Tombstone = () => {
-//   const [image] = useImage(PictureBackground)
-//   if (window.innerWidth <= 767) {
-//     return <Image alt="background" image={image} width={300} height={392.25} />
-//   } else {
-//     return <Image alt="background" image={image} width={600} height={784.5} />
-//   }
-// }
 
 class InstructionsModal extends React.Component {
   constructor() {
@@ -36,7 +26,7 @@ class InstructionsModal extends React.Component {
 
   render() {
       return (<>
-      <div id="modal-wrapper" class="modal-wrapper">
+      <div id="modal-wrapper" className="modal-wrapper">
         <div className="modal-content">
             <h2>THE TRINITY OF TERROR <br />TOUR IS UPON US</h2>
             <p>Carve your name on the tombstone and seal your fate.</p>
@@ -87,20 +77,94 @@ class URLImage extends React.Component {
   }
 }
 
+class TransformerComponent extends Component {
+  componentDidMount() {
+    this.checkNode()
+  }
+
+  componentDidUpdate() {
+    this.checkNode()
+  }
+
+  onTransformStart() {
+    console.log('transform start')
+    alert('Transforming')
+  }
+
+  onTransform() {
+    console.log('transform')
+  }
+
+  onTransformEnd() {
+    console.log('end transform')
+  }
+
+  checkNode() {
+      // here we need to manually attach or detach Transformer node
+      const stage = this.transformer.getStage();
+      const { selectedShapeName } = this.props;
+      var selectedNode = stage.findOne("." + selectedShapeName);
+
+      this.transformer.enabledAnchors([
+        'top-left', 'top-right', 'bottom-left', 'bottom-right'
+      ])
+      // console.log(selectedNode.textHeight)
+      // console.log(selectedNode)
+      // do nothing if selected node is already attached
+      if (selectedNode === this.transformer.node()) {
+        return;
+      }
+      if (selectedNode) {
+        const type = selectedNode.getType();
+        if ( type !== "Group") {
+          selectedNode = selectedNode.findAncestor("Group");
+        }
+        // attach to another node
+        this.transformer.attachTo(selectedNode);
+      } else {
+        // remove transformer
+        this.transformer.detach();
+      }
+
+      this.transformer.getLayer().batchDraw();
+    }
+
+    render() {
+
+      return (
+        <Transformer
+          ref={node => {
+            this.transformer = node;
+          }}
+          transformstart={this.onTransformStart}
+          transform={this.onTransform}
+          transformend={this.onTransformEnd}
+          rotateEnabled={false}
+          anchorSize={40}
+          anchorFill='rgba(0,0,0,0)'
+          anchorStroke='rgba(0,0,0,0)'
+          flipEnabled={false}
+          borderStroke='#BC271D'
+          padding={10}
+        />
+      );
+    }
+}
+
 class ImageEditor extends Component {
   constructor(props) {
     super(props)
     this.state = {
       textOne: "",
-      textOneSize: 18,
+      textOneSize: 28,
       textOneShow: true,
       textTwo: "",
-      textTwoSize: 18,
+      textTwoSize: 28,
       textTwoShow: false,
       textThree: "",
-      textThreeSize: 18,
+      textThreeSize: 28,
       textThreeShow: false,
-      imageUrl: 'http://' + window.location.host + '/one-grave.jpg',
+      imageUrl: 'https://' + window.location.host + '/one-grave.jpg',
       selectedShapeName: "",
       clawOneActive: true,
       clawTwoActive: false,
@@ -127,6 +191,37 @@ class ImageEditor extends Component {
 
     this.saveImageAs = this.saveImageAs.bind(this)
     this.handlePictureChange = this.handlePictureChange.bind(this)
+  }
+
+  handleStageMouseDown = e => {
+    // clicked on stage - cler selection
+    
+    if (e.target === e.target.getStage()) {
+      this.setState({
+        selectedShapeName: ""
+      });
+      return;
+    }
+    // clicked on transformer - do nothing
+    const clickedOnTransformer =
+      e.target.getParent().className === "Transformer";
+    if (clickedOnTransformer) {
+      return;
+    }
+
+    // find clicked rect by its name
+    const name = e.target.name();
+    // const rect = this.state.rectangles.find(r => r.name === name);
+    if (name) {
+      console.log(e.target)
+      this.setState({
+        selectedShapeName: name
+      });
+    } else {
+      this.setState({
+        selectedShapeName: ""
+      });
+    }
   }
 
   resetEditor() {
@@ -160,7 +255,7 @@ class ImageEditor extends Component {
   handlePictureChange(image) {
     switch (image) {
       case ('one'):
-        this.setState({ imageUrl: 'http://' + window.location.host + '/one-grave.jpg',
+        this.setState({ imageUrl: 'https://' + window.location.host + '/one-grave.jpg',
         textOneShow: true,
         textTwoShow: false,
         textThreeShow: false,
@@ -177,7 +272,7 @@ class ImageEditor extends Component {
         break;
       case ('two'):
         this.setState({ 
-          imageUrl: 'http://' + window.location.host + '/two-graves.jpg',
+          imageUrl: 'https://' + window.location.host + '/two-graves.jpg',
           textOneShow: true,
           textTwoShow: true,
           textThreeShow: false,
@@ -193,7 +288,7 @@ class ImageEditor extends Component {
         })
         break;
       case ('three'):
-        this.setState({ imageUrl: 'http://' + window.location.host + '/three-graves.jpg',
+        this.setState({ imageUrl: 'https://' + window.location.host + '/three-graves.jpg',
           textOneShow: true,
           textTwoShow: true,
           textThreeShow: true,
@@ -209,18 +304,16 @@ class ImageEditor extends Component {
         })
         break;
       default:
-        this.setState({ imageUrl: 'http://' + window.location.host + '/one-grave.jpg' })
+        this.setState({ imageUrl: 'https://' + window.location.host + '/one-grave.jpg' })
     }
   }
 
   saveImageAs() {
     const canvas = document.getElementsByTagName('canvas')
-   
     var img = canvas[0].toDataURL();
     var blob = dataURItoBlob(img);
-    console.log(blob)
     let file = [new File([blob], "filename.png", {type: "image/png"})];
-    console.log(file)
+
     if (navigator.share && navigator.canShare({ files: file })) {
       navigator.share({
         title: 'Trinity of Terror Tour',
@@ -228,11 +321,9 @@ class ImageEditor extends Component {
         files: file
       })
         .then(() => {
-          console.log('Successful share')
-          alert('successful share')
           this.setState({ contentToShow: 'listenButtons' })
         })
-        .catch((error) => console.log('Error sharing', error));
+        .catch((error) => console.log(error));
     }
 
     function dataURItoBlob(dataURI) {
@@ -254,7 +345,13 @@ class ImageEditor extends Component {
       }
   }
 
+  handleDrag(e) {
+    console.log(e)
+    e.target.attrs.width += 10
+  }
+
   render() {
+
     let stageWidth = 0;
     let stageHeight = 0;
     if (window.innerWidth <= 767) {
@@ -275,9 +372,18 @@ class ImageEditor extends Component {
             <Layer>
             {/* <Tombstone /> */}
               <URLImage src={this.state.imageUrl} width={stageWidth} height={stageHeight} />
-              <Text visible={this.state.textOneShow} draggable name="text"  fontFamily='Awakening' fillEnabled={true} fillPatternImage={this.state.imageUrl} fontSize={this.state.textOneSize} text={this.state.textOne} fill='#111111' x={this.state.textOneX} y={this.state.textOneY} />
-              <Text visible={this.state.textTwoShow} draggable name="text" fontFamily='Awakening' fontSize={this.state.textTwoSize} text={this.state.textTwo} fill='#111111' x={this.state.textTwoX} y={this.state.textTwoY} />
-              <Text visible={this.state.textThreeShow} draggable name="text" fontFamily='Awakening' fontSize={this.state.textThreeSize} text={this.state.textThree} fill='#111111' x={this.state.textThreeX} y={this.state.textThreeY} />
+              <Group visible={true} name="groupOne" draggable fill='red' height={10} width={150} x={this.state.textOneX} y={this.state.textOneY}>
+                <Text visible={this.state.textOneShow} name="textOne" fontFamily='Awakening' fillEnabled={true} fillPatternImage={this.state.imageUrl} fontSize={this.state.textOneSize} text={this.state.textOne} fill='#111111'  />
+              </Group>
+              <Group visible={true} name="groupTwo" draggable fill='red' height={10} width={150} x={this.state.textTwoX} y={this.state.textTwoY}>
+                <Text visible={this.state.textTwoShow} name="textTwo" fontFamily='Awakening' fontSize={this.state.textTwoSize} text={this.state.textTwo} fill='#111111' />
+              </Group>
+              <Group visible={true} name="groupThree"draggable fill='red' height={10} width={150} x={this.state.textThreeX} y={this.state.textThreeY}>
+                <Text visible={this.state.textThreeShow} name="textThree" fontFamily='Awakening' fontSize={this.state.textThreeSize} text={this.state.textThree} fill='#111111' />
+              </Group>
+              <TransformerComponent
+                selectedShapeName={this.state.selectedShapeName}
+              />
             </Layer>
           </Stage>
           </div>
@@ -297,7 +403,7 @@ class ImageEditor extends Component {
               <input placeholder="Carve Your Name" type="text" value={this.state.textOne} onChange={this.handleTextOneChange}></input>
             </div>
     
-            <div className="image-editor-field-wrapper font-size">
+            {/* <div className="image-editor-field-wrapper font-size">
               <Slider axis="x" x={this.state.textOneSize} onChange={this.handleTextOneSizeChange} 
                 styles={{
                   track: {
@@ -310,7 +416,7 @@ class ImageEditor extends Component {
                   }
                 }} 
               />
-            </div>
+            </div> */}
     
             {/* TEXT TWO */}
             <div style={{ display: this.state.textTwoShow ? 'block' : 'none' }}>
@@ -318,7 +424,7 @@ class ImageEditor extends Component {
                 <input placeholder="Friend Two" type="text" value={this.state.textTwo} onChange={this.handleTextTwoChange}></input>
               </div>
     
-              <div className="image-editor-field-wrapper font-size">
+              {/* <div className="image-editor-field-wrapper font-size">
                 <Slider axis="x" x={this.state.textTwoSize} onChange={this.handleTextTwoSizeChange} 
                   styles={{
                     track: {
@@ -331,7 +437,7 @@ class ImageEditor extends Component {
                     }
                   }} 
                 />
-              </div>
+              </div> */}
             </div>
     
             {/* TEXT THREE */}
@@ -340,7 +446,7 @@ class ImageEditor extends Component {
               <input placeholder="Friend Three" type="text" value={this.state.textThree} onChange={this.handleTextThreeChange}></input>
             </div>
     
-            <div className="image-editor-field-wrapper font-size">
+            {/* <div className="image-editor-field-wrapper font-size">
               <Slider axis="x" x={this.state.textThreeSize} onChange={this.handleTextThreeSizeChange} 
                 styles={{
                   track: {
@@ -353,11 +459,11 @@ class ImageEditor extends Component {
                   }
                 }} 
               />
-            </div>
+            </div> */}
             </div>
     
             <div className="image-editor-field-wrapper submit-button">
-              <button onClick={this.saveImageAs}><i class="fa-thin fa-share-nodes"></i> SPREAD</button>
+              <button onClick={this.saveImageAs}><i className="fa-thin fa-share-nodes"></i> SHARE</button>
             </div>
           </div>
           <InstructionsModal />
@@ -368,16 +474,16 @@ class ImageEditor extends Component {
         <div className="share-button-container">
           <h2 className="share-button-header">GET READY <br />FOR THE TERROR</h2>
         <div className="share-button-wrapper">
-          <a target="_blank" rel="noopener noreferrer" href="https://found.ee/miwlinkinbio">PRE-SAVE MOTIONLESS IN WHITE'S NEW ALBUM <span style={{ fontStyle: 'italic' }}>NEW ALBUM NAME</span></a>
+          <a target="_blank" rel="noopener noreferrer" href="https://found.ee/scoringtheendoftheworld">MOTIONLESS IN WHITE</a>
         </div>
         <div className="share-button-wrapper">
-          <a target="_blank" rel="noopener noreferrer" href="https://found.ee/horrorwood?utm_medium=social&utm_source=linktree&utm_campaign=the+silver+scream+2%3A+welcome+to+horrorwood">LISTEN TO ICE NINE KILL'S NEW ALBUM <span style={{ fontStyle: 'italic' }}>WELCOME TO HORRORWOOD: THE SILVER SCREAM 2</span></a>
+          <a target="_blank" rel="noopener noreferrer" href="https://open.spotify.com/artist/52qKfVcIV4GS8A8Vay2xtt?si=w55ajRu1Tg6cqtr0ptFi-w">ICE NINE KILLS</a>
         </div>
         <div className="share-button-wrapper">
-          <a target="_blank" rel="noopener noreferrer" href="https://smarturl.it/PhantomTomorrow">LISTEN TO BLACK VEIL BRIDES' ALBUM <span style={{ fontStyle: 'italic' }}>THE PHANTOM TOMORROW</span></a>
+          <a target="_blank" rel="noopener noreferrer" href="https://blackveilbrides.net">BLACK VEIL BRIDES</a>
         </div>
         <div className="reset-editor-wrapper">
-          <button onClick={this.resetEditor}><i class="fa-thin fa-arrow-rotate-right"></i> RESET EDITOR</button>
+          <button onClick={this.resetEditor}><i className="fa-thin fa-arrow-rotate-right"></i> RESET EDITOR</button>
         </div>
         </div>
         </>)
